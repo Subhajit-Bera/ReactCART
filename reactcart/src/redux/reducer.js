@@ -49,7 +49,11 @@ export const cartReducer = createReducer(
             let sum = 0;
             state.cartItems.forEach((i) => (sum += i.price * i.quantity));
             state.subTotal = sum;
-            state.shipping = state.subTotal > 1000 ? 0 : 200;
+            if(state.cartItems.length!=0){
+                state.shipping = state.subTotal > 1000 ? 0 : 200;
+              }else{
+                state.shipping=0;
+              }
             state.tax = +(state.subTotal * 0.18).toFixed(); //.toFixed() return string so we added + before it, now it will return number instead of string
             state.total = state.subTotal + state.tax + state.shipping;
         },
