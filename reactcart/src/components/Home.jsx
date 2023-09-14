@@ -1,5 +1,6 @@
 import React from "react";
 import toast from "react-hot-toast";
+import {useDispatch} from "react-redux";
 
 import ig1 from "../assets/img1.jpg";
 import ig2 from "../assets/img2.jpg";
@@ -20,8 +21,16 @@ const Home = () => {
         },
     ];
 
-    const addToCartHandler = (options) => {
-        console.log(options);
+
+    const dispatch=useDispatch();
+
+    const handler = (options) => {
+        dispatch({
+            type:"addToCart",
+            payload:options      
+        });
+        dispatch({type:"calculatePrice"});
+    
         toast.success("Added To Cart");
     }
 
@@ -34,7 +43,7 @@ const Home = () => {
                     name={i.name}
                     price={i.price}
                     id={i.id}
-                    handler={addToCartHandler}
+                    handler={handler}
                 />
             ))}
         </div>
